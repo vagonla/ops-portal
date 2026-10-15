@@ -1,0 +1,87 @@
+/*
+	Shared liquid-glass layer for popup modals.
+	Employee card is the reference look; other modal cards inherit this shell.
+*/
+
+.emp-card-backdrop,
+.my-profile-sheet-backdrop-glass {
+	background: rgba(2, 6, 12, 0.82);
+}
+
+:is(.emp-card, .my-profile-sheet-glass) {
+	background: #0a0f17;
+	border: 1px solid rgba(255, 255, 255, 0.22);
+	box-shadow:
+		0 -10px 22px rgba(0, 0, 0, 0.1),
+		inset 0 1px 0 rgba(255, 255, 255, 0.24),
+		inset 0 -8px 16px rgba(255, 255, 255, 0.012),
+		inset 8px 0 16px rgba(216, 223, 232, 0.01),
+		inset -8px 0 16px rgba(168, 179, 194, 0.01);
+	isolation: isolate;
+}
+
+:is(.emp-card, .my-profile-sheet-glass)::before,
+:is(.emp-card, .my-profile-sheet-glass)::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+}
+
+:is(.emp-card, .my-profile-sheet-glass)::before {
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.015) 24%, transparent 46%),
+		radial-gradient(92% 60% at 16% -8%, rgba(255, 255, 255, 0.09), transparent 72%),
+		radial-gradient(72% 44% at 90% 106%, rgba(255, 255, 255, 0.035), transparent 72%);
+	mix-blend-mode: screen;
+}
+
+:is(.emp-card, .my-profile-sheet-glass)::after {
+	background:
+		radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.05), transparent 58%),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 35%, rgba(255, 255, 255, 0.006) 100%);
+	opacity: 0.42;
+}
+
+:is(.emp-card, .my-profile-sheet-glass) > * {
+	position: relative;
+	z-index: 1;
+}
+
+:is(.emp-card, .my-profile-sheet-glass) .emp-card-hero,
+:is(.emp-card, .my-profile-sheet-glass) .my-profile-sheet-body,
+:is(.emp-card, .my-profile-sheet-glass) .emp-card-actions {
+	background: transparent;
+}
+
+:is(.emp-card, .my-profile-sheet-glass) .emp-card-section {
+	background: rgba(255, 255, 255, 0.014);
+	border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+:is(.emp-card, .my-profile-sheet-glass) .emp-card-close-btn {
+	background: rgba(255, 255, 255, 0.03);
+	border-color: rgba(255, 255, 255, 0.22);
+}
+
+:is(.emp-card, .my-profile-sheet-glass) .emp-card-close-btn:hover {
+	background: rgba(255, 255, 255, 0.06);
+	border-color: rgba(255, 255, 255, 0.28);
+	color: #dbe2ea;
+}
+
+:is(.emp-card, .my-profile-sheet-glass) .emp-card-handle {
+	background: rgba(196, 206, 218, 0.34);
+}
+
+@media (min-width: 900px) {
+	.emp-card-backdrop,
+	.my-profile-sheet-backdrop-glass {
+		background: rgba(2, 6, 12, 0.72);
+	}
+
+	:is(.emp-card, .my-profile-sheet-glass) {
+		border: 1px solid rgba(255, 255, 255, 0.24);
+	}
+}

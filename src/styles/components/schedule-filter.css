@@ -1,0 +1,298 @@
+/*
+	Gelismis filtre paneli.
+	Masaustunde toolbar'dan sag-alt dogru acilan dropdown.
+	Mobilde bottom sheet olarak acilir.
+*/
+
+.schedule-filter-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 1200;
+	background: rgba(2, 6, 12, 0.48);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	animation: fadeIn 0.18s ease;
+}
+
+.schedule-filter-panel {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1201;
+	max-height: 86dvh;
+	display: flex;
+	flex-direction: column;
+	border-radius: 20px 20px 0 0;
+	border-top: 1px solid var(--border-glow);
+	background: rgba(10, 16, 28, 0.92);
+	backdrop-filter: blur(18px) saturate(120%);
+	-webkit-backdrop-filter: blur(18px) saturate(120%);
+	box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.6);
+	animation: empCardSlideUp 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.schedule-filter-handle {
+	width: 40px;
+	height: 4px;
+	margin: 10px auto 0;
+	border-radius: 999px;
+	background: rgba(196, 206, 218, 0.34);
+	flex-shrink: 0;
+}
+
+.schedule-filter-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding: 14px 18px 10px;
+	border-bottom: 1px solid var(--border-secondary);
+}
+
+.schedule-filter-title {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--text-primary);
+}
+
+.schedule-filter-close {
+	background: transparent;
+	border: none;
+	color: var(--text-tertiary);
+	cursor: pointer;
+	padding: 6px;
+	border-radius: var(--radius-sm);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	transition: color var(--transition-fast);
+}
+
+.schedule-filter-close:hover {
+	color: var(--text-primary);
+}
+
+.schedule-filter-close svg {
+	width: 18px;
+	height: 18px;
+}
+
+.schedule-filter-body {
+	overflow-y: auto;
+	padding: 14px 18px 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	overscroll-behavior: contain;
+	-webkit-overflow-scrolling: touch;
+}
+
+.schedule-filter-section {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.schedule-filter-section-title {
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: var(--text-tertiary);
+}
+
+.schedule-filter-options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.schedule-filter-option {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 7px 12px;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid var(--border-secondary);
+	border-radius: 999px;
+	color: var(--text-secondary);
+	font-size: 12px;
+	font-weight: 500;
+	font-family: inherit;
+	cursor: pointer;
+	transition: all var(--transition-fast);
+	-webkit-tap-highlight-color: transparent;
+}
+
+.schedule-filter-option:hover {
+	background: rgba(255, 255, 255, 0.06);
+	color: var(--text-primary);
+}
+
+.schedule-filter-option.selected {
+	background: rgba(91, 160, 230, 0.16);
+	border-color: rgba(91, 160, 230, 0.42);
+	color: #b1dcff;
+}
+
+.schedule-filter-option svg {
+	width: 12px;
+	height: 12px;
+}
+
+.schedule-filter-toggle-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 10px 12px;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid var(--border-secondary);
+	border-radius: var(--radius-md);
+}
+
+.schedule-filter-toggle-label {
+	font-size: 13px;
+	color: var(--text-primary);
+	font-weight: 500;
+}
+
+.schedule-filter-toggle-sub {
+	font-size: 11px;
+	color: var(--text-tertiary);
+	margin-top: 2px;
+}
+
+.schedule-filter-switch {
+	position: relative;
+	width: 40px;
+	height: 22px;
+	background: rgba(255, 255, 255, 0.08);
+	border-radius: 999px;
+	border: 1px solid var(--border-secondary);
+	cursor: pointer;
+	transition: all var(--transition-fast);
+	flex-shrink: 0;
+}
+
+.schedule-filter-switch::after {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 16px;
+	height: 16px;
+	background: #fff;
+	border-radius: 50%;
+	transition: transform var(--transition-fast);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.schedule-filter-switch.on {
+	background: var(--accent-primary);
+	border-color: rgba(91, 160, 230, 0.6);
+}
+
+.schedule-filter-switch.on::after {
+	transform: translateX(18px);
+}
+
+/* Time range slider-ish (simple dual input fallback) */
+.schedule-filter-time {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.schedule-filter-time-input {
+	flex: 1;
+	padding: 9px 10px;
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid var(--border-primary);
+	border-radius: var(--radius-md);
+	color: var(--text-primary);
+	font-size: 13px;
+	font-family: inherit;
+	outline: none;
+	font-variant-numeric: tabular-nums;
+}
+
+.schedule-filter-time-input:focus {
+	border-color: rgba(91, 160, 230, 0.4);
+}
+
+.schedule-filter-time-sep {
+	color: var(--text-tertiary);
+	font-size: 12px;
+}
+
+/* Footer */
+.schedule-filter-footer {
+	display: flex;
+	gap: 10px;
+	padding: 12px 18px;
+	border-top: 1px solid var(--border-secondary);
+	background: rgba(5, 9, 18, 0.52);
+}
+
+.schedule-filter-footer-reset,
+.schedule-filter-footer-apply {
+	flex: 1;
+	padding: 12px;
+	border-radius: var(--radius-md);
+	font-size: 13px;
+	font-weight: 600;
+	font-family: inherit;
+	cursor: pointer;
+	transition: all var(--transition-fast);
+	min-height: var(--touch-target-min);
+	-webkit-tap-highlight-color: transparent;
+}
+
+.schedule-filter-footer-reset {
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid var(--border-primary);
+	color: var(--text-secondary);
+}
+
+.schedule-filter-footer-reset:hover {
+	color: var(--accent-danger);
+	border-color: rgba(239, 68, 68, 0.3);
+}
+
+.schedule-filter-footer-apply {
+	background: linear-gradient(180deg, rgba(91, 160, 230, 0.4), rgba(91, 160, 230, 0.22));
+	border: 1px solid rgba(91, 160, 230, 0.6);
+	color: #e5f2ff;
+}
+
+.schedule-filter-footer-apply:hover {
+	background: linear-gradient(180deg, rgba(91, 160, 230, 0.5), rgba(91, 160, 230, 0.3));
+}
+
+/* Desktop dropdown layout */
+@media (min-width: 901px) {
+	.schedule-filter-backdrop {
+		background: transparent;
+		backdrop-filter: none;
+		-webkit-backdrop-filter: none;
+	}
+
+	.schedule-filter-panel {
+		position: absolute;
+		left: auto;
+		right: 16px;
+		top: calc(var(--schedule-toolbar-height) + 8px);
+		bottom: auto;
+		width: 420px;
+		max-height: 70vh;
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--border-glow);
+		animation: empCardScale 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+
+	.schedule-filter-handle {
+		display: none;
+	}
+}

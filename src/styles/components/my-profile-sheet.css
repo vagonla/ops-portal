@@ -1,0 +1,272 @@
+/*
+	MyProfileSheet moduler stilleri.
+	Not: Cam efekti burada tutulur (preset dosyalarina dagitilmaz).
+*/
+
+.my-profile-sheet-backdrop-glass {
+	background: rgba(5, 9, 18, 0.82);
+}
+
+.my-profile-sheet-glass {
+	background: #0a0f17;
+	border: 1px solid rgba(194, 214, 237, 0.18);
+	box-shadow:
+		0 -16px 42px rgba(1, 6, 16, 0.34),
+		inset 0 1px 0 rgba(255, 255, 255, 0.16),
+		inset 0 -10px 18px rgba(4, 10, 22, 0.12),
+		inset 10px 0 18px rgba(180, 226, 255, 0.015),
+		inset -8px 0 16px rgba(100, 150, 255, 0.012);
+	position: fixed;
+	isolation: isolate;
+}
+
+.my-profile-sheet-glass::before,
+.my-profile-sheet-glass::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+}
+
+.my-profile-sheet-glass::before {
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.01) 24%, transparent 46%),
+		radial-gradient(92% 60% at 16% -8%, rgba(202, 236, 255, 0.07), transparent 72%),
+		radial-gradient(72% 44% at 90% 106%, rgba(118, 165, 255, 0.035), transparent 72%);
+	mix-blend-mode: screen;
+}
+
+.my-profile-sheet-glass::after {
+	background:
+		radial-gradient(120% 90% at 50% 0%, rgba(255, 255, 255, 0.025), transparent 58%),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 35%, rgba(0, 0, 0, 0.04) 100%);
+	opacity: 0.12;
+}
+
+.my-profile-sheet-glass > * {
+	position: relative;
+	z-index: 1;
+}
+
+.my-profile-sheet-glass .emp-card-hero,
+.my-profile-sheet-glass .my-profile-sheet-body,
+.my-profile-sheet-glass .emp-card-actions {
+	background: transparent;
+}
+
+.my-profile-sheet-glass .emp-card-section {
+	background: rgba(7, 15, 31, 0.14);
+	border-bottom-color: rgba(180, 208, 235, 0.07);
+}
+
+.my-profile-sheet-glass .emp-card-close-btn {
+	background: rgba(23, 34, 53, 0.5);
+	border-color: rgba(208, 228, 248, 0.12);
+}
+
+.my-profile-sheet-glass .emp-card-close-btn:hover {
+	background: rgba(28, 42, 66, 0.72);
+	border-color: rgba(208, 228, 248, 0.16);
+	color: #dbe9f7;
+}
+
+.my-profile-sheet-glass .emp-card-handle {
+	background: rgba(206, 225, 244, 0.34);
+}
+
+/* Base layout and controls used only by MyProfileSheet */
+.my-profile-sheet-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.82);
+	z-index: 1100;
+	animation: fadeIn 0.2s ease;
+}
+
+.my-profile-sheet {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1101;
+	background: var(--bg-secondary);
+	border-radius: 24px 24px 0 0;
+	border-top: 1px solid var(--border-glow);
+	max-height: 94dvh;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.5);
+	animation: empCardSlideUp 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.my-profile-sheet-body {
+	overflow-y: auto;
+	flex: 1;
+	overscroll-behavior: contain;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+}
+
+.my-profile-sheet-body::-webkit-scrollbar {
+	display: none;
+}
+
+.profile-name-search-wrap {
+	position: relative;
+}
+
+.profile-name-search-input {
+	width: 100%;
+	padding: 12px 16px;
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid rgba(255, 255, 255, 0.16);
+	border-radius: var(--radius-md);
+	color: var(--text-primary);
+	font-size: 14px;
+	font-family: inherit;
+	outline: none;
+	transition: border-color var(--transition-fast);
+	box-sizing: border-box;
+}
+
+.profile-name-search-input:focus {
+	border-color: rgba(191, 204, 219, 0.34);
+	box-shadow: 0 0 0 3px rgba(170, 184, 200, 0.12);
+}
+
+.profile-name-results {
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid rgba(255, 255, 255, 0.14);
+	border-radius: var(--radius-md);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	margin-top: 6px;
+	height: 170px;
+	overflow-y: auto;
+}
+
+.profile-name-result-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 14px;
+	cursor: pointer;
+	transition: background var(--transition-fast);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-name-result-item:last-child {
+	border-bottom: none;
+}
+
+.profile-name-result-item:hover,
+.profile-name-result-item:active {
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.service-card {
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid rgba(255, 255, 255, 0.14);
+	border-radius: var(--radius-md);
+	padding: 16px;
+	position: relative;
+}
+
+.service-card-header {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 14px;
+}
+
+.service-card-icon {
+	width: 36px;
+	height: 36px;
+	border-radius: 10px;
+	background: rgba(114, 127, 145, 0.16);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #c8d2de;
+	flex-shrink: 0;
+}
+
+.service-card-title {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--text-primary);
+}
+
+.service-card-subtitle {
+	font-size: 11px;
+	color: var(--text-muted);
+	margin-top: 1px;
+}
+
+.service-stop-select {
+	width: 100%;
+	padding: 10px 14px;
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid rgba(255, 255, 255, 0.16);
+	border-radius: var(--radius-sm);
+	color: var(--text-primary);
+	font-size: 13px;
+	font-family: inherit;
+	outline: none;
+	appearance: none;
+	-webkit-appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 12px center;
+	padding-right: 36px;
+	cursor: pointer;
+	transition: border-color var(--transition-fast);
+}
+
+.service-stop-select:focus {
+	border-color: rgba(192, 205, 220, 0.34);
+}
+
+.danger-btn {
+	width: 100%;
+	padding: 13px;
+	background: rgba(239, 68, 68, 0.05);
+	border: 1px solid rgba(239, 68, 68, 0.15);
+	border-radius: 14px;
+	color: var(--accent-danger);
+	font-size: 14px;
+	font-weight: 400;
+	font-family: inherit;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	transition: all var(--transition-fast);
+	-webkit-tap-highlight-color: transparent;
+}
+
+.danger-btn:active,
+.danger-btn.confirm-pending {
+	background: rgba(239, 68, 68, 0.18);
+	border-color: rgba(239, 68, 68, 0.5);
+	font-weight: 600;
+}
+
+@media (min-width: 900px) {
+	.my-profile-sheet {
+		left: 50%;
+		right: auto;
+		bottom: auto;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 480px;
+		max-width: 95vw;
+		max-height: 90vh;
+		border-radius: 20px;
+		border: 1px solid var(--border-glow);
+		animation: empCardScale 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+}
+

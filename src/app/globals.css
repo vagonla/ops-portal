@@ -1,0 +1,350 @@
+@import "../styles/modular.css";
+
+/* Core theme, base and app shell moved to modular files:
+   src/styles/core/tokens.css
+   src/styles/core/base.css
+   src/styles/components/app-shell.css
+   Schedule (shift-table, day-view, filter, infinite scroll, avatar) moved to:
+   src/styles/components/schedule-*.css, shift-table.css */
+
+/* ======================== RESPONSIVE ======================== */
+
+@media (max-width: 900px) {
+  /* MOBILE LAYOUT ACTIVATION */
+  .app-container {
+    padding-bottom: 100px;
+    height: calc(100vh - 120px - env(safe-area-inset-bottom));
+    overflow: hidden;
+  }
+
+  .drawer-overlay {
+    display: none !important;
+  }
+
+  /* Mobilde main-content tam ekran tab paneli olarak çalışır.
+   * header yüksekliği 'auto' olduğu için sabit 64px yerine 120px offset kullanılıyor.
+   * Bu değer header'ın tek satır + zaman kontrolü yüksekliğini kapsar. */
+  .main-content {
+    width: 100%;
+    min-width: 100%;
+    height: calc(100vh - 120px - env(safe-area-inset-bottom));
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* desktop sticky/top değerlerini sıfırla */
+    align-self: auto;
+    overflow-y: auto;
+    border: none;
+    padding-bottom: 120px;
+  }
+  
+  /* Tab Display Logic - Hidden by Default */
+  .app-container:not(.mobile-tab-table) .main-content { display: none; }
+
+  /* shift-table mobile overrides moved to src/styles/components/shift-table.css */
+  .main-header {
+    padding: 12px 16px;
+  }
+  .main-header h2 {
+    font-size: 16px;
+  }
+  .upload-dropzone {
+    padding: 32px 20px;
+  }
+  .upload-container h2 {
+    font-size: 20px;
+  }
+}
+
+/* ======================== TOOLTIP ======================== */
+
+.tooltip-wrap {
+  position: relative;
+}
+
+.tooltip-wrap .tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+}
+
+.tooltip-wrap:hover .tooltip {
+  opacity: 1;
+}
+
+/* File list */
+.uploaded-files {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+
+
+.uploaded-file-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.uploaded-file-item:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-primary);
+}
+
+.uploaded-file-item.active {
+  border-color: var(--accent-primary);
+  background: rgba(0, 92, 185, 0.1);
+}
+
+.uploaded-file-item svg {
+  color: var(--accent-primary);
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.uploaded-file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.uploaded-file-name {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.uploaded-file-meta {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 1px;
+}
+
+.uploaded-file-remove {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all var(--transition-fast);
+  display: flex;
+}
+
+.uploaded-file-remove:hover {
+  color: var(--accent-danger);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* ======================== ERROR BOUNDARY ======================== */
+
+.error-boundary {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: var(--bg-primary);
+}
+
+.error-boundary-content {
+  max-width: 440px;
+  text-align: center;
+}
+
+.error-boundary-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-danger);
+}
+
+.error-boundary-content h2 {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.error-boundary-content p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.error-boundary-details {
+  text-align: left;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+}
+
+.error-boundary-details summary {
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.error-boundary-details code {
+  display: block;
+  font-size: 12px;
+  color: var(--accent-danger);
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.error-boundary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 400;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.error-boundary-btn:hover {
+  opacity: 0.9;
+}
+
+/* ======================== TOAST NOTIFICATIONS ======================== */
+
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+  max-width: 380px;
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  pointer-events: all;
+  animation: toast-slide-in 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+}
+
+@keyframes toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.toast-success {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
+}
+
+.toast-error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.toast-warning {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #fbbf24;
+}
+
+.toast-info {
+  background: rgba(0, 92, 185, 0.15);
+  border: 1px solid rgba(0, 92, 185, 0.3);
+  color: #a5b4fc;
+}
+
+.toast-icon {
+  flex-shrink: 0;
+}
+
+.toast-message {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-close {
+  flex-shrink: 0;
+  padding: 2px;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+  display: flex;
+}
+
+.toast-close:hover {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .toast-container {
+    bottom: 96px;
+    right: 12px;
+    left: 12px;
+    max-width: none;
+  }
+}
+
+/* ======================== EMPLOYEE PROFILE CARD ======================== */
+/* EmployeeProfileCard stilleri moduler dosyaya tasindi: src/styles/components/employee-profile-card.css */
+
+/* ======================== MY PROFILE SHEET ======================== */
+/* MyProfile stilleri moduler dosyaya tasindi: src/styles/components/my-profile-sheet.css */

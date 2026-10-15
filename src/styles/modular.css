@@ -1,0 +1,19 @@
+/*
+  Kalici moduler stil girisi.
+  Geri donus icin preset katmani kullanilmaz.
+*/
+@import "./core/tokens.css";
+@import "./core/base.css";
+@import "./components/app-shell.css";
+@import "./components/departments.css";
+@import "./components/panels.css";
+@import "./components/employee-profile-card.css";
+@import "./components/my-profile-sheet.css";
+@import "./components/shift-chips.css";
+@import "./components/header.css";
+@import "./components/mobile-bottom-nav.css";
+@import "./components/modal-glass.css";
+@import "./components/schedule-shell.css";
+@import "./components/schedule-filter.css";
+@import "./components/shift-table.css";
+@import "./components/social-sheet.css";
