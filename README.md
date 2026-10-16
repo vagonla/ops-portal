@@ -1,6 +1,6 @@
 # OPS Portal
 
-Haftalık Çelebi vardiya Excel dosyalarını ve servis güzergâhlarını tarayıcıda görüntüleyen bağımsız, açık kaynak uygulama.
+Haftalık vardiya Excel dosyalarını ve servis güzergâhlarını tarayıcıda görüntüleyen bağımsız, açık kaynak uygulama.
 
 ## Özellikler
 
